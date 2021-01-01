@@ -67,3 +67,40 @@ Prefs = {
 ~~~
 
 And that concludes the installation.
+
+## Ubuntu 20.04.1 Quick Setup copy'n'paste
+This assume you are not connected as a "plex" user which is why the chown/chmod at the end.
+First the path ( Based on Ubuntu Headless server 20.04.1 )
+>cd /var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins
+
+Getting the files
+>sudo wget https://github.com/Cazzar/ShokoMetadata.bundle/archive/master.zip
+
+Unziping the removing and renaming
+>sudo unzip master.zip
+
+>sudo rm master.zip
+
+>sudo mv ShokoMetadata.bundle-master ShokoMetadata.bundle
+
+If you never installed a Plex scanner previously you need to make the folder
+>sudo mkdir -p '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Scanners'
+
+Since we are already in the plugin folder lets copy certain files
+>sudo cp -R ShokoMetadata.bundle/Contents/Resources/* ../Scanners/
+
+If shoko server is on a different machine or you are not using 'Default' user enter login password by editing those two files
+>sudo pico '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Scanners/Movies/Shoko Movie Scanner.py'
+
+>sudo pico '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Scanners/Series/Shoko Series Scanner.py'
+
+Chmod and Chown both
+>sudo chown -R plex:plex '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/'
+
+>sudo chmod 775 -R '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/'
+
+>sudo chown -R plex:plex '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Scanners'
+
+>sudo chmod -R 775 '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Scanners'
+
+Thats it.
